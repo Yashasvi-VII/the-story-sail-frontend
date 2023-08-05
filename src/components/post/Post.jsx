@@ -10,7 +10,9 @@ const Post = () => {
   useEffect(() => {
     const fetchAllPosts = async () => {
       try {
-        const res = await axios.get("http://localhost:7700/api/posts");
+        const res = await axios.get(
+          "https://the-story-sail-backend-2f38de10db81.herokuapp.com/api/posts"
+        );
         console.log(res);
         setPosts(res.data);
       } catch (error) {

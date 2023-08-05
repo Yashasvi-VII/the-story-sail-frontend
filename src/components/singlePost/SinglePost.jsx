@@ -13,7 +13,8 @@ const SinglePost = () => {
     const fetchPosts = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:7700/api/posts/" + postId
+          "https://the-story-sail-backend-2f38de10db81.herokuapp.com/api/posts/" +
+            postId
         );
         console.log(res);
         setPosts(res.data);
@@ -27,7 +28,10 @@ const SinglePost = () => {
   console.log(location.pathname.split("/")[2]);
   const handleDelete = async (id) => {
     try {
-      await axios.delete("http://localhost:7700/api/posts/" + id);
+      await axios.delete(
+        "https://the-story-sail-backend-2f38de10db81.herokuapp.com/api/posts/" +
+          id
+      );
       navigate("/");
     } catch (error) {
       console.log(error);

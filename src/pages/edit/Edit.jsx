@@ -1,50 +1,63 @@
-import './Edit.css'
-import { useLocation,useNavigate } from 'react-router-dom';
+import "./Edit.css";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from 'axios';
+import axios from "axios";
 const Edit = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const postId = location.pathname.split("/")[2];
 
-     const navigate = useNavigate();
-     const location = useLocation()
-          const postId= location.pathname.split("/")[2];
+  const [post, setPost] = useState({
+    title: "",
+    content: "",
+  });
 
-     const [post, setPost] = useState({
-          title:"",
-          content:"",
-     });
- 
+  const handleChange = async (e) => {
+    setPost((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+  const handleClick = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.put(
+        `https://the-story-sail-backend-2f38de10db81.herokuapp.com/api/posts/${postId}`,
+        post
+      );
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-const handleChange = async e =>{
-     setPost((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-}
-const handleClick = async (e) =>{
-     e.preventDefault();
-try {
-     await axios.put(`http://localhost:7700/api/posts/${postId}`,post)
-     navigate("/")
-} catch (error) {
-     console.log(error);
-}
-};
-       
   return (
-      <div className="edit">
+    <div className="edit">
       <h1 className="editPost">Edit Blog</h1>
       <form className="editForm">
-           <div className="editFormGroup">
-                <input type="text" placeholder="Title" className="editTitle" autoFocus={true}
-                onChange={handleChange}
-                name="title"/>
-           </div>
-           <div className="editFormGroup">
-           <input type="text" placeholder="Content" className="editContent" autoFocus={true}
-                onChange={handleChange}
-                name="content"/>
-           </div>
-           <button className="editSubmit" onClick={handleClick}>Submit</button>
+        <div className="editFormGroup">
+          <input
+            type="text"
+            placeholder="Title"
+            className="editTitle"
+            autoFocus={true}
+            onChange={handleChange}
+            name="title"
+          />
+        </div>
+        <div className="editFormGroup">
+          <input
+            type="text"
+            placeholder="Content"
+            className="editContent"
+            autoFocus={true}
+            onChange={handleChange}
+            name="content"
+          />
+        </div>
+        <button className="editSubmit" onClick={handleClick}>
+          Submit
+        </button>
       </form>
-     </div>
-  )
-}
+    </div>
+  );
+};
 
 export default Edit;
