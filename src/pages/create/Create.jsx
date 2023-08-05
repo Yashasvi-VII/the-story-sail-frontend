@@ -19,7 +19,7 @@ export default function Create() {
     e.preventDefault();
     try {
       await axios.post(
-        "https://the-story-sail-backend-2f38de10db81.herokuapp.com/posts",
+        "https://the-story-sail-backend-2f38de10db81.herokuapp.com/api/posts",
         post
       );
       navigate("/");
